@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<div class="home">
+{% for voice in site.voices %}
+  <a href="{{ voice.url }}"> {{ voice.name }} {{ voice.surname }} </a>
+  </br>
+{% endfor %}
+
+</div>
