@@ -2,46 +2,51 @@
 layout: default
 ---
 <div class="row">
-      
-<div class="input-field">
-  <input id="finder" type="search" required>
-  <label class="label-icon" for="search"><i id="lupa" class="material-icons">search</i></label>
-  <i class="material-icons">close</i>
-</div>
-
-{% for voice in site.data.voices %}
-{% if voice.photo[0]['url']%}
-<div class = "voice">
-  <div class="searchable" style="display: none;">
-    {{ voice.nombre }}
-    {{ voice.apellidos }}
-    {{ voice.sexo }}
-    {{ voice.tags }}
+  <div class="input-field">
+    <input id="finder" type="search" required>
+    <label class="label-icon" for="search"><i id="lupa" class="material-icons">search</i></label>
+    <i class="material-icons">close</i>
   </div>
-  <div class="col s12 m6 l3">
-   <div class="card">
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="{{ voice.photo[0]['url'] }}">
+
+  <div class="voices">
+    {% for voice in site.data.voices %}
+    {% if voice.photo[0]['url']%}
+    <div class = "voice">
+      <div class="searchable" style="display: none;">
+        <div class="nombre">{{ voice.nombre }}</div>
+        <div class="apellidos">{{ voice.apellidos }}</div>
+        <div class="habituales">{{ voice.habituales }}</div>
+        <div class="personajes">{{ voice.personajes }}</div>
+        {{ voice.apellidos }}
+        {{ voice.sexo }}
+        {{ voice.tags }}
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">{{ voice.nombre }} {{voice.apellidos}}</span>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Demos<i class="material-icons right">close</i></span>
-        </br>
-        {% if voice.demos %}
-        {% for demo in voice.demos %}
-        {{ demo.filename }}
-        <audio id="player" controls >
-          <source src="{{demo.url}}" type="{{demo.type}}">
-        </audio>
-        {% endfor %}
-        {% endif %}
-        <p>{{ voice.descripcion }}</p>
+      <div class="col s12 m6 l3">
+       <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ voice.photo[0]['url'] }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{ voice.nombre }} {{voice.apellidos}}</span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Demos<i class="material-icons right">close</i></span>
+            </br>
+
+            {% if voice.demos %}
+            {% for demo in voice.demos %}
+            {{ demo.filename }}
+            <audio id="player" controls >
+              <source src="{{demo.url}}" type="{{demo.type}}">
+            </audio>
+            {% endfor %}
+            {% endif %}
+            <p>{{ voice.descripcion }}</p>
+          </div>
+        </div>
       </div>
     </div>
+    {% endif %}
+    {% endfor %}
   </div>
-</div>
-{% endif %}
-{% endfor %}
 </div>

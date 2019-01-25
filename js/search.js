@@ -4,10 +4,8 @@ function match(voice, input)
   return false
 }
 
-
 $(function(){
   $("#finder").keyup(function() {
-    
     voices = document.getElementsByClassName('voice');
     input = document.getElementById('finder').value;
     for (i=0; i<voices.length; i++) {
@@ -20,7 +18,8 @@ $(function(){
         voices[i].hidden = true;
       }
     }
-
   });
 });
+
+
 
