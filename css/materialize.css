@@ -4889,7 +4889,10 @@ small {
 }
 
 .card .card-content {
-  padding: 24px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
   border-radius: 0 0 2px 2px;
 }
 

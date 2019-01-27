@@ -16,7 +16,5 @@ $.fn.shuffleChildren = function() {
 $(document).ready(function(){
   $('.sidenav').sidenav();
   $('.voices').shuffleChildren();
+  $('.collapsible').collapsible();
 });
-
-
-

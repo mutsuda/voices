@@ -1,52 +1,102 @@
 ---
 layout: default
 ---
-<div class="row">
+<!-- search bar -->
+<div class="row searchbar">
   <div class="input-field">
     <input id="finder" type="search" required>
     <label class="label-icon" for="search"><i id="lupa" class="material-icons">search</i></label>
     <i class="material-icons">close</i>
   </div>
+</div>
 
-  <div class="voices">
-    {% for voice in site.data.voices %}
-    {% if voice.photo[0]['url']%}
-    <div class = "voice">
-      <div class="searchable" style="display: none;">
-        <div class="nombre">{{ voice.nombre }}</div>
-        <div class="apellidos">{{ voice.apellidos }}</div>
-        <div class="habituales">{{ voice.habituales }}</div>
-        <div class="personajes">{{ voice.personajes }}</div>
-        {{ voice.apellidos }}
-        {{ voice.sexo }}
-        {{ voice.tags }}
-      </div>
-      <div class="col s12 m6 l3">
-       <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="{{ voice.photo[0]['url'] }}">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">{{ voice.nombre }} {{voice.apellidos}}</span>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Demos<i class="material-icons right">close</i></span>
-            </br>
+<!-- filters -->
+<div class="row options" id="filters">
+<label id = "male_checkbox" class="col s2">
+  <input type="checkbox" class="filled-in" checked="checked" />
+  <span>Hombre</span>
+</label>
 
-            {% if voice.demos %}
-            {% for demo in voice.demos %}
-            {{ demo.filename }}
-            <audio id="player" controls >
-              <source src="{{demo.url}}" type="{{demo.type}}">
-            </audio>
-            {% endfor %}
-            {% endif %}
-            <p>{{ voice.descripcion }}</p>
-          </div>
+<label id = "female_checkbox" class="col s2">
+  <input type="checkbox" class="filled-in" checked="checked" />
+  <span>Mujer</span>
+</label>
+
+<label id = "joven_checkbox" class="col s2">
+  <input type="checkbox" class="filled-in" checked="checked" />
+  <span>Joven</span>
+</label>
+
+<label id = "media_checkbox" class="col s2">
+  <input type="checkbox" class="filled-in" checked="checked" />
+  <span>Media</span>
+</label>
+
+<label id = "grave_checkbox" class="col s2">
+  <input type="checkbox" class="filled-in" checked="checked" />
+  <span>Grave</span>
+</label>
+</div>
+<div class="row">
+  <div class="divider"></div>
+</div>
+
+<div class="voices row">
+  {% for voice in site.data.voices %}
+  {% if voice.photo[0]['url']%}
+  <div class = "voice" data-category = "{{ voice.sexo}} {{voice.voz}}">
+    <div class="searchable" style="display: none;">
+      <div class="nombre">{{ voice.nombre }}</div>
+      <div class="apellidos">{{ voice.apellidos }}</div>
+      <div class="habituales">{{ voice.habituales }}</div>
+      <div class="personajes">{{ voice.personajes }}</div>
+      <div class="sexo">{{ voice.sexo }}</div>
+      <div class = "voz">{{voice.voz}}</div>
+      <div class ="tags">{{ voice.tags }}</div>
+    </div>
+    <div class="col s12 m6 l3">
+     <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="{{ voice.photo[0]['url'] }}">
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4 center-align">{{ voice.nombre }} {{voice.apellidos}}</span>
+        </div>
+
+        <ul class="collapsible z-depth-0">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">audiotrack</i></div>
+
+            <div class="collapsible-body">
+              {% if voice.demos %}
+              {% for demo in voice.demos %}
+              {{ demo.filename }}
+              <audio id="player" controls >
+                <source src="{{demo.url}}" type="{{demo.type}}">
+              </audio>
+              {% endfor %}
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Demos<i class="material-icons right">close</i></span>
+          </br>
+
+          {% if voice.demos %}
+          {% for demo in voice.demos %}
+          {{ demo.filename }}
+          <audio id="player" controls >
+            <source src="{{demo.url}}" type="{{demo.type}}">
+          </audio>
+          {% endfor %}
+          {% endif %}
+          <p>{{ voice.descripcion }}</p>
         </div>
       </div>
     </div>
-    {% endif %}
-    {% endfor %}
   </div>
+  {% endif %}
+  {% endfor %}
 </div>
