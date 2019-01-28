@@ -59,29 +59,16 @@ layout: default
     </div>
     <div class="col s12 m6 l3">
      <div class="card">
+
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator" src="{{ voice.photo[0]['url'] }}">
+          <span class="search-info card-title black-text"></span>
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4 center-align">{{ voice.nombre }} {{voice.apellidos}}</span>
         </div>
 
-        <ul class="collapsible z-depth-0">
-          <li>
-            <div class="collapsible-header"><i class="material-icons">audiotrack</i></div>
-
-            <div class="collapsible-body">
-              {% if voice.demos %}
-              {% for demo in voice.demos %}
-              {{ demo.filename }}
-              <audio id="player" controls >
-                <source src="{{demo.url}}" type="{{demo.type}}">
-              </audio>
-              {% endfor %}
-              {% endif %}
-            </div>
-          </li>
-        </ul>
+       
 
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">Demos<i class="material-icons right">close</i></span>

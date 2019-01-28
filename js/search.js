@@ -7,14 +7,30 @@ var search = "";
 
 function shouldHide(voice)
 {
-  var sex = voice.children[0].children[4].innerText;
-  var voz = voice.children[0].children[5].innerText;
+  var sex = $(voice).find(".sexo").text();
+  var voz = $(voice).find(".voz").text();
   if (sex == 'Male' && !male) return true;
   if (sex == 'Female' && !female) return true;
   if (voz == 'Joven' && !joven) return true;
   if (voz == 'Media' && !media) return true;
   if (voz == 'Grave' && !grave) return true;
-  if (!match(voice, search)) return true;
+  result = match(voice, search);
+  if (!result)
+  {
+    $(voice).find("img", class_=".activator").fadeTo("fast", 1);
+    return true;
+  }
+  else 
+  {
+    $(voice).find("img", class_=".activator").fadeTo("fast", 0.15);
+    if (result != true) $(voice).find(".search-info").text(result);
+    
+  }
+  if (search=="")
+  {
+    $(voice).find("img", class_=".activator").fadeTo("fast", 1);
+    $(voice).find(".search-info").text("");
+  }
   return false;
 }
 
@@ -27,10 +43,37 @@ function updateView()
   }
 }
 
+function getName(habituales, index)
+{
+  start = habituales.lastIndexOf(',',index)+1;
+  if (start == -1) start = 0;
+  end = habituales.indexOf(',',index);
+  if (end == -1) end = habituales.length;
+
+  return habituales.substring(start,end).trim();
+
+}
+
 function match(voice, input)
 { 
-  if (voice.children[0].innerText.toUpperCase().indexOf(input.toUpperCase()) > -1) return true
-  return false
+  if ($(voice).find(".nombre").text().toUpperCase().indexOf(input.toUpperCase()) > -1) return true;
+  if ($(voice).find(".apellidos").text().toUpperCase().indexOf(input.toUpperCase()) > -1) return true;
+
+  habituales = $(voice).find(".habituales").text();
+  h_i = habituales.toUpperCase().indexOf(input.toUpperCase());
+  
+  if (h_i > -1)
+  {
+    return getName(habituales,h_i);
+  }
+
+  personajes = $(voice).find(".personajes").text();
+  p_i = personajes.toUpperCase().indexOf(input.toUpperCase());
+  if (p_i > -1) 
+  {
+    return getName(personajes,p_i);
+  }
+  return "";
 }
 
 $(function(){
